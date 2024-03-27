@@ -12,8 +12,7 @@ import com.messaging.models.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 	
-	@Query(value = "SELECT * FROM messages WHERE recipient_id = ?1 OR recipient_id = ?2 "
-			+ "IN (SELECT * FROM messages WHERE sender_id = ?1 OR sender_id = ?2)", nativeQuery = true)
+	@Query(value = "SELECT * FROM messages WHERE sender_id = ?1 OR sender_id = ?2)", nativeQuery = true)
 	public Optional<List<Message>> findBySenderAndRecipient(int person1, int person2);
 
 }
