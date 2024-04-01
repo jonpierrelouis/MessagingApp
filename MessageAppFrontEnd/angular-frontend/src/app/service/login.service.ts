@@ -8,14 +8,14 @@ import { environment } from 'src/environments/environment';
 
 export class LoginService {
 
-  private baseLoginUrl = `${environment.baseUrl}/user`;
+  private baseLoginUrl = `${environment.baseUrl}`;
 
   constructor(private http : HttpClient) { }
 
   loginUser(username: string, password: string){
 
     let params = new HttpParams()
-      .set('email', username)
+      .set('username', username)
       .set('password', password);
 
     return this.http.post(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );

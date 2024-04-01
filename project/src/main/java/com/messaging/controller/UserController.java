@@ -56,6 +56,8 @@ public class UserController {
 	@PostMapping(value = "/login")
 	public User loginUser(HttpSession session, HttpServletRequest req){
 		
+		System.out.println("starting");
+		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
