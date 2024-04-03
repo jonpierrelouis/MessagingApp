@@ -6,7 +6,7 @@ export default class Login {
     constructor(userId: number, username: string, password: string){
         this.userId = userId;
         this.username = username;
-        this.password = this.password;
+        this.password = password;
     }
 
 }

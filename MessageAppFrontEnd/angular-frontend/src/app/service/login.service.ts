@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import Login from '../models/Login';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class LoginService {
       .set('username', username)
       .set('password', password);
 
-    return this.http.post(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
+    return this.http.post<Login>(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
 
   }
 }
