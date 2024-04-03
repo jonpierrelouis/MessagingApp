@@ -27,7 +27,9 @@ public class UserService {
 	 */
 	public User createUser(String username, String password) {
 		
-		return userRepo.save(new User(username, password));
+		userRepo.save(new User(username, password));
+		
+		return new User(username, "***");
 	}
 	
 	/**
@@ -37,8 +39,14 @@ public class UserService {
 	 * @return returns user obj if it exists
 	 */
 	public Optional<User> login(String username, String password) {
+		
+		Optional<User> user = userRepo.findByUsernameAndPassword(username,password);
+		
+		if(user.isPresent()) {
+			user.get().setPassword("***");
+		}
 	
-		return userRepo.findByUsernameAndPassword(username,password);
+		return user;
 	}
 	
 	

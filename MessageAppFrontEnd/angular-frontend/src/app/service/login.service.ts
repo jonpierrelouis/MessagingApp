@@ -12,6 +12,12 @@ export class LoginService {
 
   constructor(private http : HttpClient) { }
 
+  /**
+   * This method logins user given username and password
+   * @param username 
+   * @param password 
+   * @returns login
+   */
   loginUser(username: string, password: string){
 
     let params = new HttpParams()
