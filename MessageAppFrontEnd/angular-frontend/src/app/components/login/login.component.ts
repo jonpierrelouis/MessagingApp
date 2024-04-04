@@ -22,7 +22,12 @@ export class LoginComponent implements OnInit {
 
     this.loginService.loginUser(this.submitEmail, this.submitPassword).subscribe((resp) => {
       console.log(resp);
+      this.router.navigate(['main']);
     })
+  }
+
+  sendToRegister(){
+    this.router.navigate(['register']);
   }
 
 }
