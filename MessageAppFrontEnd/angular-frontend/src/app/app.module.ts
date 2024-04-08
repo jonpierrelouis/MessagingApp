@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { FriendsBarComponent } from './components/friends-bar/friends-bar.component';
+import { FriendComponent } from './components/friend/friend.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MainpageComponent
+    MainpageComponent,
+    FriendsBarComponent,
+    FriendComponent
   ],
   imports: [
     BrowserModule,

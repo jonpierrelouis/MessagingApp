@@ -37,7 +37,7 @@ public class FriendService {
 	 * @return the user's friend object
 	 */
 	public Friend addFriend(int userId, int friendId) {
-		
+		friendRepo.save(new Friend(friendId, userId));
 		return friendRepo.save(new Friend(userId, friendId));
 	}
 
