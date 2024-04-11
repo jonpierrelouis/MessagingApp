@@ -14,8 +14,8 @@ import com.messaging.models.Friend;
 public interface FriendRepository extends JpaRepository<Friend, FriendKey> {
 
 	@Query(value = "SELECT users.user_name FROM friends "
-			+ "INNER JOIN users ON friends.friend_id = users.user_id "
-			+ "WHERE user_id_fk = ?1;", nativeQuery=true)
-	Optional<List<String>> findByUserId(int userId);
+			+ " INNER JOIN users ON friends.friend_id = users.user_id "
+			+ " WHERE user_id_fk = ?1;", nativeQuery=true)
+	Optional<List<Friend>> findByUserId(int userId);
 
 }

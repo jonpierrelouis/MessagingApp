@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.messaging.models.Friend;
@@ -29,10 +31,10 @@ public class FriendController {
 	 * @param req
 	 * @return returns a list of the user's friends
 	 */
-	public Optional<List<String>> getFriendsList(HttpSession session, HttpServletRequest req){
+	@GetMapping(value = "/getFriends")
+	public Optional<List<Friend>> getFriendsList(HttpSession session, HttpServletRequest req){
 		
 		Object userId = session.getAttribute("userId");
-		
 		
 		return friendService.findByUsingUserId((Integer) userId);	
 	}
@@ -43,6 +45,7 @@ public class FriendController {
 	 * @param req
 	 * @return the friend object
 	 */
+	@PostMapping(value = "/addFriend")
 	public Friend addFriend(HttpSession session, HttpServletRequest req) {
 		
 		Object userId = session.getAttribute("userId");

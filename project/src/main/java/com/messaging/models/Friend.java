@@ -1,11 +1,17 @@
 package com.messaging.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.messaging.keys.FriendKey;
 
 import lombok.AllArgsConstructor;
@@ -26,5 +32,16 @@ public class Friend {
 	
 	@Column(name="friend_id")
 	private int friendId;
+	
+	@ManyToMany
+	@JoinTable(name = "friends_list", joinColumns = @JoinColumn(name = "friend_id"),
+	inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> user;
+
+	public Friend(int userId, int friendId) {
+		super();
+		this.userId = userId;
+		this.friendId = friendId;
+	}
 	
 }

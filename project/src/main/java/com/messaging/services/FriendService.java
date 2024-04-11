@@ -25,7 +25,7 @@ public class FriendService {
 	 * @param userId
 	 * @return
 	 */
-	public Optional<List<String>> findByUsingUserId(int userId){
+	public Optional<List<Friend>> findByUsingUserId(int userId){
 		
 		return friendRepo.findByUserId(userId);
 	}
