@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.messaging.models.Friend;
+import com.messaging.models.User;
 import com.messaging.services.FriendService;
 
 @RestController
@@ -32,7 +33,7 @@ public class FriendController {
 	 * @return returns a list of the user's friends
 	 */
 	@GetMapping(value = "/getFriends")
-	public Optional<List<Friend>> getFriendsList(HttpSession session, HttpServletRequest req){
+	public List<User> getFriendsList(HttpSession session, HttpServletRequest req){
 		
 		Object userId = session.getAttribute("userId");
 		

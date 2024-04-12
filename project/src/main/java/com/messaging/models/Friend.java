@@ -30,18 +30,8 @@ public class Friend {
 	@Column(name="user_id_fk")
 	private int userId;
 	
+	
 	@Column(name="friend_id")
 	private int friendId;
-	
-	@ManyToMany
-	@JoinTable(name = "friends_list", joinColumns = @JoinColumn(name = "friend_id"),
-	inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> user;
-
-	public Friend(int userId, int friendId) {
-		super();
-		this.userId = userId;
-		this.friendId = friendId;
-	}
 	
 }

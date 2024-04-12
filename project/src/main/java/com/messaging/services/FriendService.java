@@ -1,5 +1,6 @@
 package com.messaging.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,17 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.messaging.models.Friend;
+import com.messaging.models.User;
 import com.messaging.repositories.FriendRepository;
+import com.messaging.repositories.UserRepository;
 
 @Service
 public class FriendService {
 	
 	private final FriendRepository friendRepo;
+	private final UserRepository userRepo;
 	
 	@Autowired
-	public FriendService(FriendRepository friendRepo) {
+	public FriendService(FriendRepository friendRepo, UserRepository userRepo) {
 		super();
 		this.friendRepo = friendRepo;
+		this.userRepo = userRepo;
 	}
 	
 	/**
@@ -25,9 +30,23 @@ public class FriendService {
 	 * @param userId
 	 * @return
 	 */
-	public Optional<List<Friend>> findByUsingUserId(int userId){
+	public List<User> findByUsingUserId(int userId){
 		
-		return friendRepo.findByUserId(userId);
+		Optional<List<Friend>> friends = friendRepo.findByUserId(userId);
+		
+		List<User> users = new ArrayList<>();
+		
+		for(Friend friend : friends.get()) {
+			User user = userRepo.findById(friend.getFriendId()).get();
+			
+			User newUser = new User(user.getUserId(), user.getUsername());
+			
+			users.add(newUser);
+//			System.out.println(user.getUserId());
+//			System.out.println(friend.getFriendId());
+		}
+		
+		return users;
 	}
 	
 	/**

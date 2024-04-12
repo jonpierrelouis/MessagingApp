@@ -27,9 +27,9 @@ public class UserService {
 	 */
 	public User createUser(String username, String password) {
 		
-		userRepo.save(new User(username, password));
+		User newUser = userRepo.save(new User(username, password));
 		
-		return new User(username, "***");
+		return new User(newUser.getUserId(), username, "***");
 	}
 	
 	/**
