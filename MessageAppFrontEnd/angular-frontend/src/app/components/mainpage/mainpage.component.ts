@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Friend from 'src/app/models/Friend';
+import { FriendsService } from 'src/app/service/friends.service';
 
 @Component({
   selector: 'app-mainpage',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainpageComponent implements OnInit {
 
-  constructor() { }
+  friend = this.friendService.getFriends();
+
+  constructor(private friendService: FriendsService) { }
 
   ngOnInit(): void {
+    console.log(this.friend)
   }
 
 }

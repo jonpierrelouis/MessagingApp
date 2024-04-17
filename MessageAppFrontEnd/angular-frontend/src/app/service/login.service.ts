@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
 export class LoginService {
 
-  private baseLoginUrl = `${environment.baseUrl}`;
+  private baseLoginUrl = `${environment.baseUrl}/user`;
 
   constructor(private http : HttpClient) { }
 
@@ -27,6 +27,7 @@ export class LoginService {
       .set('password', password);
 
     return this.http.post<Login>(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
+    // return this.http.post<Login>(`localhost:9002/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
 
   }
 

@@ -42,8 +42,6 @@ public class FriendService {
 			User newUser = new User(user.getUserId(), user.getUsername());
 			
 			users.add(newUser);
-//			System.out.println(user.getUserId());
-//			System.out.println(friend.getFriendId());
 		}
 		
 		return users;
