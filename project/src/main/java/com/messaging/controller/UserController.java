@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ public class UserController {
 	
 	private final UserService userService;
 
+	@Autowired
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;
@@ -58,9 +61,7 @@ public class UserController {
 	 * if not return an empty object.
 	 */
 	@PostMapping(value = "/login")
-	public User loginUser(HttpSession session, HttpServletRequest req){
-		
-		System.out.println("starting");
+	public ResponseEntity<User> loginUser(HttpSession session, HttpServletRequest req){
 		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
@@ -69,13 +70,14 @@ public class UserController {
 		
 		//check to see if username and password is correct
 		if(!optionalUser.isPresent()) {
-			return new User("", "");
+//			return new User("", "");
+			return ResponseEntity.badRequest().build();
 		}
 		
 		int userId = optionalUser.get().getUserId();
 		session.setAttribute("userId", userId);
 		
-		return new User(userId, username, password);
+		return ResponseEntity.ok(new User(userId, username, ""));
 	}
 	
 	/**
