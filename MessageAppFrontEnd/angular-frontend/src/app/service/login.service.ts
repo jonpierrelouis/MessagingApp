@@ -27,8 +27,6 @@ export class LoginService {
       .set('password', password);
 
     return this.http.post<Login>(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
-    // return this.http.post<Login>(`localhost:9002/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials} );
-
   }
 
   registerUser(username: string, password: string): Observable<Login>{

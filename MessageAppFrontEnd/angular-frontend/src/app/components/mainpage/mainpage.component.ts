@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Friend from 'src/app/models/Friend';
 import { FriendsService } from 'src/app/service/friends.service';
 
@@ -9,16 +9,21 @@ import { FriendsService } from 'src/app/service/friends.service';
 })
 export class MainpageComponent implements OnInit {
 
-  friends: Friend[] = [];
+  friendsList: Friend[];
+  resp: any;
 
-  constructor(private friendService: FriendsService) { }
+  constructor(private friendService: FriendsService) {
 
-  ngOnInit(): void { }
-  
-  ngAfterViewInit():void {
-    this.friendService.getFriends().subscribe( friendList => {
-      this.friends.concat(friendList);
-      console.log(friendList);
+    this.friendService.getFriends().subscribe( resp => {
+      this.resp = resp;
+      console.log(resp);
     })
-  }
+
+    this.friendsList = this.resp;
+   }
+
+  ngOnInit(): void {
+
+   }
+  
 }

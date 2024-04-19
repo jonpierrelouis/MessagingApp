@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-friends-bar',
@@ -7,13 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FriendsBarComponent implements OnInit {
 
-  @Input() item = '';
-
-  arr = [0,1,2,3,4,5,6,7,8,9,10];
+  @Input() friendsList: any;
+  List = [0,1,2,3];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    console.log("friends bar")
+    console.log(this.friendsList)
   }
 
   showMessages(){
