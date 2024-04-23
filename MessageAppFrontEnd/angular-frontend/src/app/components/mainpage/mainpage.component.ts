@@ -9,18 +9,7 @@ import { FriendsService } from 'src/app/service/friends.service';
 })
 export class MainpageComponent implements OnInit {
 
-  friendsList: Friend[];
-  resp: any;
-
-  constructor(private friendService: FriendsService) {
-
-    this.friendService.getFriends().subscribe( resp => {
-      this.resp = resp;
-      console.log(resp);
-    })
-
-    this.friendsList = this.resp;
-   }
+  constructor() { }
 
   ngOnInit(): void {
 

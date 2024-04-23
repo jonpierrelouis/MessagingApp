@@ -4,9 +4,8 @@
       <span class="fs-5 fw-semibold">Friends List</span>
     </a>
 
-    <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let i of List">
-      <!-- <app-friend friend={{i.username}} friendId = {{i.userId}} onclick="e()"></app-friend> -->
-      <app-friend friend={{i}} onclick="e()"></app-friend>
+    <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let i of resp">
+      <app-friend [friend]="i" onclick="e()"></app-friend>
     </div>
 </div>
 

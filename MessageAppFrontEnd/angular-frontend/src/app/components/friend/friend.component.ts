@@ -10,8 +10,7 @@ export class FriendComponent implements OnInit {
 
   colored: boolean = true;
 
-  @Input() friend: string = "";
-  @Input() friendId: any = 0;
+  @Input() friend: Friend
 
   constructor() { }
 
@@ -19,13 +18,15 @@ export class FriendComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    console.log("from friend")
     console.log(this.friend)
   }
 
 
-  isActive(){
-    console.log("hello from ", this.friend);
+  /**
+   * When component is clicked, this will show message history on the mainpage
+   */
+  ActivateMessage(){
+    
   }
 
 
