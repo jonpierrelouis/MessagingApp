@@ -45,6 +45,11 @@ public class FriendController {
 		return friendService.findByUsingUserId((Integer) userId);	
 	}
 	
+	/**
+	 * 
+	 * @param userId
+	 * @return returns a list of the user's friends
+	 */
 	@GetMapping(value = "/getFriends/{userId}")
 	public List<User> getFriendsList(@PathVariable int userId){
 		

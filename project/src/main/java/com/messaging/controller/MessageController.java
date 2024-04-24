@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +41,11 @@ public class MessageController {
 		return messageService.storeMessage( (Integer) sender, recipient, message);
 	}
 	
+	public Message storeMessage(@RequestBody Message message) {
+
+		return messageService.storeMessage(message.getSenderId(), message.getRecipientId(), message.getMessageBody());
+	}
+	
 	@GetMapping(value = "/getMessages")
 	public Optional<List<Message>> retrieveMessages(HttpSession session, HttpServletRequest req){
 		
@@ -47,6 +53,12 @@ public class MessageController {
 		int recipient = Integer.parseInt(req.getParameter("recipient"));
 		
 		return messageService.retrieveMessages((Integer) sender, recipient);
+	}
+	
+	@GetMapping(value = "/getMessages/{userId}/{friendId}")
+	public Optional<List<Message>> retrieveMessages(@PathVariable int userId, @PathVariable int friendId){
+		
+		return messageService.retrieveMessages(userId, friendId);
 	}
 	
 }
