@@ -41,18 +41,10 @@ public class MessageController {
 		return messageService.storeMessage( (Integer) sender, recipient, message);
 	}
 	
+	@PostMapping(value = "/sendMessageBody")
 	public Message storeMessage(@RequestBody Message message) {
 
 		return messageService.storeMessage(message.getSenderId(), message.getRecipientId(), message.getMessageBody());
-	}
-	
-	@GetMapping(value = "/getMessages")
-	public Optional<List<Message>> retrieveMessages(HttpSession session, HttpServletRequest req){
-		
-		Object sender = session.getAttribute("userId");
-		int recipient = Integer.parseInt(req.getParameter("recipient"));
-		
-		return messageService.retrieveMessages((Integer) sender, recipient);
 	}
 	
 	@GetMapping(value = "/getMessages/{userId}/{friendId}")

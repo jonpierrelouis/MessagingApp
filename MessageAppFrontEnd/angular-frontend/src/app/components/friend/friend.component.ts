@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Friend from 'src/app/models/Friend';
+import { FriendIdService } from 'src/app/service/friend-id.service';
 
 @Component({
   selector: 'app-friend',
@@ -12,7 +13,7 @@ export class FriendComponent implements OnInit {
 
   @Input() friend: Friend
 
-  constructor() { }
+  constructor(private friendId: FriendIdService) { }
 
   ngOnInit(): void {
   }
@@ -23,10 +24,11 @@ export class FriendComponent implements OnInit {
 
 
   /**
-   * When component is clicked, this will show message history on the mainpage
+   * When component is clicked, this will show message history on the mainpage by sending 
+   * a new friend id with the friendId service
    */
   ActivateMessage(){
-    
+    this.friendId.setFriendId(this.friend.userId);
   }
 
 
