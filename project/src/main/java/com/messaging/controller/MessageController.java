@@ -50,6 +50,7 @@ public class MessageController {
 	@GetMapping(value = "/getMessages/{userId}/{friendId}")
 	public Optional<List<Message>> retrieveMessages(@PathVariable int userId, @PathVariable int friendId){
 		
+		
 		return messageService.retrieveMessages(userId, friendId);
 	}
 	

@@ -46,5 +46,4 @@ public class MessageService {
 		return messageRepository.findBySenderAndRecipient(person1, person2); 
 	}
 	
-	
 }
