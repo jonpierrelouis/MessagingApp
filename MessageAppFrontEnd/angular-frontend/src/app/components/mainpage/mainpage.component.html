@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-sm p-3 min-vh-100">
-            <div *ngFor="let message of messageArray">
+            <div *ngFor="let message of messageArray | async">
                 
             </div>
         </div>

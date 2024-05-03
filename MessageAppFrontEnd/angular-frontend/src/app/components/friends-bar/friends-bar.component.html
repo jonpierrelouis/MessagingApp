@@ -5,7 +5,7 @@
     </a>
 
     <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let i of resp">
-      <app-friend [friend]="i" onclick="e()"></app-friend>
+      <app-friend [friend]="i" (click)="showMessages()"></app-friend>
     </div>
 </div>
 

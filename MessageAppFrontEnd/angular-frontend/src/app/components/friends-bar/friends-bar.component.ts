@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FriendsService } from 'src/app/service/friends.service';
 
 @Component({
@@ -10,7 +10,6 @@ export class FriendsBarComponent implements OnInit {
 
   @Input() friendsList: any;
   resp: any;
-  List = [0,1,2,3];
 
   constructor(private friendService: FriendsService) { }
 
@@ -29,7 +28,7 @@ export class FriendsBarComponent implements OnInit {
   }
 
   showMessages(){
-    console.log("what")
+    
   }
 
 }
