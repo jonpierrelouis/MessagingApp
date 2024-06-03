@@ -1,5 +1,6 @@
 package com.messaging.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.messaging.models.Message;
+import com.messaging.models.MessageDTO;
+import com.messaging.models.User;
 import com.messaging.services.MessageService;
+import com.messaging.services.UserService;
 
 @RestController
 @RequestMapping("/messages")
@@ -24,11 +28,13 @@ import com.messaging.services.MessageService;
 public class MessageController {
 
 	private final MessageService messageService;
+	private final UserService userService;
 
 	@Autowired 
-	public MessageController(MessageService messageService) {
+	public MessageController(MessageService messageService, UserService userService) {
 		super();
 		this.messageService = messageService;
+		this.userService = userService;
 	}
 	
 	@PostMapping(value = "/sendMessage")
@@ -50,8 +56,33 @@ public class MessageController {
 	@GetMapping(value = "/getMessages/{userId}/{friendId}")
 	public Optional<List<Message>> retrieveMessages(@PathVariable int userId, @PathVariable int friendId){
 		
-		
 		return messageService.retrieveMessages(userId, friendId);
+	}
+	
+	@GetMapping(value = "/getMessagesDTO/{userId}/{friendId}")
+	public List<MessageDTO> retrieveMessagesDTO(@PathVariable int userId, @PathVariable int friendId){
+		
+		 User user1 = userService.findByUserId(userId).get();
+		 User user2 = userService.findByUserId(friendId).get();
+		 
+		
+		 List<Message> messages = messageService.retrieveMessages(userId, friendId).get();
+		 List<MessageDTO> messagesDTO = new ArrayList<>();
+		 
+		 for(Message message : messages) {
+			 String senderName = "";
+			 
+			 if(message.getSenderId() == user1.getUserId()) {
+				 senderName = user1.getUsername();
+			 }else{
+				 senderName = user2.getUsername();
+			 }
+			 
+			 MessageDTO messageDTO = new MessageDTO(senderName, message.getMessageBody());
+			 messagesDTO.add(messageDTO);
+		 }
+		 
+		 return messagesDTO;
 	}
 	
 }

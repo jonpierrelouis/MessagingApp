@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.messaging.models.User;
 import com.messaging.repositories.UserRepository;
 
@@ -47,6 +46,10 @@ public class UserService {
 		}
 	
 		return user;
+	}
+
+	public Optional<User> findByUserId(int userId) {
+		return userRepo.findById(userId);
 	}
 	
 	
