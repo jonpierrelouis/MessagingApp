@@ -15,25 +15,11 @@ export class MainpageComponent implements OnInit {
 
   messageArray: BehaviorSubject<MessageDTO[]> = new BehaviorSubject<MessageDTO[]>([]);
 
-  ngOnInit(): void { }
-
-  //  ngOnChanges(): void {
-  //   console.log("hello")
-  //   this.changeFriend();
-
-  //  }
-
-   changeFriend(){
-    this.friendIdService.getFriendId().subscribe( friendId => {
-      this.getMessages(friendId);
+  ngOnInit(): void {
+    this.friendIdService.getMessages().subscribe(messages => {
+      this.messageArray.next(messages);
     })
    }
 
-   getMessages(friendId: number){
-    this.messageService.getMessagesDTO(friendId).subscribe( resp => {
-      this.messageArray.next(resp);
-      console.log(resp);
-    })
-   }
   
 }

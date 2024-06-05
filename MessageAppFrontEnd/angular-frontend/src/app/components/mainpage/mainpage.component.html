@@ -8,7 +8,7 @@
 
         <div class="col-sm p-3 min-vh-100">
             <div *ngFor="let message of messageArray | async">
-            
+                {{message.senderName}}: {{message.messageBody}}
 
             </div>
 

@@ -20,8 +20,6 @@ export class MessagesService {
   }
 
   getMessagesDTO(friendId: number){
-    
-    console.log("in the messages service DTO")
 
     return this.http.get<MessageDTO[]>(`${this.baseLoginUrl}/getMessagesDTO/${this.id.getUserId()}/${friendId}`);
   }

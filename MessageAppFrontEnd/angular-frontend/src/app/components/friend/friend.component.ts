@@ -28,7 +28,6 @@ export class FriendComponent implements OnInit {
    * a new friend id with the friendId service
    */
   ActivateMessage(){
-    console.log("active message")
     this.friendId.setFriendId(this.friend.userId);
   }
 
