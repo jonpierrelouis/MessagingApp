@@ -1,5 +1,4 @@
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-auto bg-light sticky-top">
@@ -9,11 +8,18 @@
         <div class="col-sm p-3 min-vh-100">
             <div *ngFor="let message of messageArray | async">
                 {{message.senderName}}: {{message.messageBody}}
-
             </div>
 
+            <form class="input-group mb-3" (ngSubmit)="sendMessage()">
+                <input type="text" class="form-control" placeholder="Message" name="newMessage" [(ngModel)]="newMessage">
+                <button class="input-group-prepend" type="submit">
+                  <span class="input-group-text" id="basic-addon1">Send</span>
+                </button>
+            </form>
+            
         </div>
-
+    
     </div>
+    
 
 </div>

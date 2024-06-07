@@ -51,4 +51,31 @@ public class MessageService {
 		return messageRepository.findBySenderAndRecipient(person1, person2);
 	}
 	
+	/**
+	 * Convert raw messages to its DTO form which only includes the message and its sender
+	 * @param messages
+	 * @param user1
+	 * @param user2
+	 * @return
+	 */
+	public List<MessageDTO> rawMessageToDTO(List<Message> messages, User user1, User user2){
+		
+		List<MessageDTO> messagesDTO = new ArrayList<>();
+		 
+		 for(Message message : messages) {
+			 String senderName = "";
+			 
+			 if(message.getSenderId() == user1.getUserId()) {
+				 senderName = user1.getUsername();
+			 }else{
+				 senderName = user2.getUsername();
+			 }
+			 
+			 MessageDTO messageDTO = new MessageDTO(senderName, message.getMessageBody());
+			 messagesDTO.add(messageDTO);
+		 }
+		
+		return messagesDTO;
+	}
+	
 }

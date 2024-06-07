@@ -1,6 +1,7 @@
 package com.messaging.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +49,16 @@ public class MessageController {
 	}
 	
 	@PostMapping(value = "/sendMessageBody")
-	public Message storeMessage(@RequestBody Message message) {
-
-		return messageService.storeMessage(message.getSenderId(), message.getRecipientId(), message.getMessageBody());
+	public List<MessageDTO> storeMessage(@RequestBody Message message) {
+		
+		User user1 = userService.findByUserId(message.getSenderId()).get();
+		User user2 = userService.findByUserId(message.getRecipientId()).get();
+		
+		messageService.storeMessage(message.getSenderId(), message.getRecipientId(), message.getMessageBody());
+		
+		List<MessageDTO> messageList = messageService.rawMessageToDTO(Arrays.asList(message), user1, user2);
+		
+		return messageList;
 	}
 	
 	@GetMapping(value = "/getMessages/{userId}/{friendId}")
@@ -65,24 +73,14 @@ public class MessageController {
 		 User user1 = userService.findByUserId(userId).get();
 		 User user2 = userService.findByUserId(friendId).get();
 		 
-		
-		 List<Message> messages = messageService.retrieveMessages(userId, friendId).get();
-		 List<MessageDTO> messagesDTO = new ArrayList<>();
+		 Optional<List<Message>> messages = messageService.retrieveMessages(userId, friendId);
 		 
-		 for(Message message : messages) {
-			 String senderName = "";
-			 
-			 if(message.getSenderId() == user1.getUserId()) {
-				 senderName = user1.getUsername();
-			 }else{
-				 senderName = user2.getUsername();
-			 }
-			 
-			 MessageDTO messageDTO = new MessageDTO(senderName, message.getMessageBody());
-			 messagesDTO.add(messageDTO);
+		 if(messages.isPresent()) {
+			 return messageService.rawMessageToDTO(messages.get(), user1, user2);
 		 }
 		 
-		 return messagesDTO;
+		 
+		 return new ArrayList<MessageDTO>();
 	}
 	
 }
