@@ -1,5 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FriendsService } from 'src/app/service/friends.service';
+import { UserIdService } from 'src/app/service/user-id.service';
 
 @Component({
   selector: 'app-friends-bar',
@@ -11,7 +12,10 @@ export class FriendsBarComponent implements OnInit {
   @Input() friendsList: any;
   resp: any;
 
-  constructor(private friendService: FriendsService) { }
+  addFriendBox: boolean = false;
+  newFriend: string = "";
+
+  constructor(private friendService: FriendsService, private userIdService: UserIdService) { }
 
   ngOnInit(): void {
 
@@ -27,6 +31,15 @@ export class FriendsBarComponent implements OnInit {
     console.log(this.friendsList)
   }
 
+  openAddFriendBox(){
+    this.addFriendBox = !this.addFriendBox;
+  }
+
+  sendAddFriend(){
+    this.friendService.addFriend(this.userIdService.getUserId(), this.newFriend).subscribe( resp => {
+      console.log(resp);
+    })
+  }
   showMessages(){
     
   }

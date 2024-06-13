@@ -18,12 +18,14 @@ export class FriendsService {
     return this.http.get<Friend[]>(`${this.baseLoginUrl}/getFriends/${this.id.getUserId()}`);
   }
 
-  addFriend(userId: number){
+  addFriend(userId: number, newFriend: string){
 
-    let params = new HttpParams()
-      .set('userId', userId);
+    let friend = {
+      "userId": userId,
+      "newFriend": newFriend
+    }
 
-    return this.http.post<Friend>(`${this.baseLoginUrl}/addFriend`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials})
+    return this.http.post<Friend>(`${this.baseLoginUrl}/addFriend`, JSON.stringify(friend) , {headers: environment.jsonHeaders, withCredentials: environment.withCredentials})
   }
 
 }

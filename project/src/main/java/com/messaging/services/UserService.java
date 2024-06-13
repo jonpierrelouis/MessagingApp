@@ -47,11 +47,24 @@ public class UserService {
 	
 		return user;
 	}
-
+	
+	/**
+	 * Method to find a user given the user id
+	 * @param userId
+	 * @return User
+	 */
 	public Optional<User> findByUserId(int userId) {
 		return userRepo.findById(userId);
 	}
 	
+	/**
+	 * Find a user given the user's username
+	 * @param username
+	 * @return User
+	 */
+	public Optional<User> findByUsername(String username){
+		return userRepo.findByUsername(username);
+	}
 	
 
 }

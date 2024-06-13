@@ -2,7 +2,20 @@
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
     <a class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
       <span class="fs-5 fw-semibold">Friends List</span>
+      <span>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="openAddFriend()">
+          +
+        </button>
+      </span>
     </a>
+    <div *ngIf="addFriendBox===true">
+      <form class="input-group mb-3" (ngSubmit)="sendAddFriend()">
+        <input type="text" class="form-control" placeholder="Username" name="newFriend" [(ngModel)]="newFriend">
+        <button class="input-group-prepend" type="submit">
+          <span class="input-group-text" id="basic-addon1">Add</span>
+        </button>
+    </form>
+    </div>
 
     <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let i of resp">
       <app-friend [friend]="i" (click)="showMessages()"></app-friend>

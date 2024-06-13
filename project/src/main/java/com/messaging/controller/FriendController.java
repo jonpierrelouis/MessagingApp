@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.messaging.models.AddFriendDTO;
 import com.messaging.models.Friend;
 import com.messaging.models.User;
 import com.messaging.services.FriendService;
+import com.messaging.services.UserService;
 
 @RestController
 @RequestMapping("/friends")
@@ -23,11 +25,13 @@ import com.messaging.services.FriendService;
 public class FriendController {
 	
 	private final FriendService friendService;
+	private final UserService userService;
 
 	@Autowired
-	public FriendController(FriendService friendService) {
+	public FriendController(FriendService friendService, UserService userService) {
 		super();
 		this.friendService = friendService;
+		this.userService = userService;
 	}
 	
 	/**
@@ -56,19 +60,35 @@ public class FriendController {
 		return friendService.findByUsingUserId(userId);
 	}
 	
+//	/**
+//	 * Allows the user to add a friend
+//	 * @param session
+//	 * @param req
+//	 * @return the friend object
+//	 */
+//	@PostMapping(value = "/addFriend")
+//	public Friend addFriend(HttpSession session, HttpServletRequest req) {
+//		
+//		Object userId = session.getAttribute("userId");
+//		int friend = Integer.parseInt(req.getParameter("friend"));
+//		
+//		return friendService.addFriend((Integer) userId, friend);
+//	}
+	
 	/**
 	 * Allows the user to add a friend
-	 * @param session
-	 * @param req
-	 * @return the friend object
+	 * @param addFriendDTO
+	 * @return
 	 */
 	@PostMapping(value = "/addFriend")
-	public Friend addFriend(HttpSession session, HttpServletRequest req) {
+	public Friend addFriend(@PathVariable AddFriendDTO addFriendDTO) {
 		
-		Object userId = session.getAttribute("userId");
-		int friend = Integer.parseInt(req.getParameter("friend"));
+		//convert username to userId
+		int newFriendId = userService.findByUsername(addFriendDTO.getNewFriend()).get().getUserId();
 		
-		return friendService.addFriend((Integer) userId, friend);
+		//add friend to db
+		
+		return friendService.addFriend(addFriendDTO.getUserId(), newFriendId);
 	}
 
 }
