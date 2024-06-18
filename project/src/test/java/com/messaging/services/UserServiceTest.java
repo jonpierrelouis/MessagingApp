@@ -1,7 +1,10 @@
 package com.messaging.services;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -30,20 +33,65 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void createUserTest1() {		
-		//Arrange
+	public void createUserTest() {		
 		User user = new User("Alice", "Bob");
-		User respUser = new User("Alice", "***");
-		
-		when(userRepository.save(user)).thenReturn(respUser);
+		User expectedUser = new User("Alice", "***");		
+		when(userRepository.save(user)).thenReturn(user);
 
-		//Act
 		User actual = userService.createUser("Alice", "Bob");
 		
+		assertEquals(expectedUser.getUsername(), actual.getUsername());
+		assertEquals(expectedUser.getPassword(), actual.getPassword());
+	}
+	
+	@Test
+	public void loginTestValidPassword() {
+		User user = new User("Alice", "Bob");
+		Optional<User> expectedUser = Optional.ofNullable(new User("Alice", "***"));	
+		when(userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword())).thenReturn(Optional.ofNullable(user));
 		
-		//Assert
-		//test name and password
-		assertEquals(respUser.getUsername(), actual.getUsername());
-		assertEquals(respUser.getPassword(), actual.getPassword());
+		Optional<User> actual = userService.login("Alice", "Bob");
+		
+		assertEquals(expectedUser, actual);
+	}
+	
+	@Test
+	public void loginTestInvalidPassword() { 
+		User user = new User("Alice", "Bob");	
+		Optional<User> expectedUser = Optional.empty();
+
+		when(userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword())).thenReturn(expectedUser);
+		
+		Optional<User> actual = userService.login("Alice", "Bob");
+		
+		assertEquals(expectedUser, actual);
+	}
+	
+	@Test
+	public void findByIdTest() {
+		int userId = 1;
+		User user = new User(1,"Alice", "Bob");
+		Optional<User> expectedUser = Optional.ofNullable(user);
+		
+		when(userRepository.findById(userId)).thenReturn(expectedUser);
+		
+		Optional<User> actual = userService.findByUserId(userId);
+		
+		assertEquals(expectedUser, actual); 
+		
+	}
+	
+	@Test
+	public void findByUsernameTest() {
+		String username = "Alice";
+		User user = new User(1, "Alice", "Bob");
+		Optional<User> expectedUser = Optional.ofNullable(user);
+		
+		when(userRepository.findByUsername(username)).thenReturn(expectedUser);
+		
+		Optional<User> actual = userService.findByUsername(username);
+		
+		assertEquals(expectedUser, actual);
+		
 	}
 }
