@@ -28,7 +28,7 @@ public class FriendService {
 	/**
 	 * Get a list of friends of the user
 	 * @param userId
-	 * @return
+	 * @return a list of friend in the form of a User object
 	 */
 	public List<User> findByUsingUserId(int userId){
 		
